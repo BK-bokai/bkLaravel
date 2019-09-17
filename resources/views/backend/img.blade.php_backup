@@ -1,6 +1,6 @@
-@section('js')
-<script src="{{ asset('js/image.js') }}" charset="utf-8"></script>
-@endsection
+
+<!-- <script src="{{ asset('js/image.js') }}" charset="utf-8"></script> -->
+
 
 @extends('backend.layouts.master')
 @section('title','編輯相片')
@@ -30,7 +30,7 @@
         @endif
         <div class="col s12 newimg"></div>
         <button class="btn waves-effect waves-light red lighten-1 delete">
-          取消
+          刪除
         </button>
       </div>
     </div>
@@ -61,7 +61,7 @@
   @foreach ($images as $image)
   <?php $path = explode("\\", $image->image_path); ?>
 
-  <!-- {{$path[7]}} -->
+  <!-- {{end($path)}} -->
 
   <div class="img_box col s12 m3">
     <form action='{{url("admin/img/$image->id")}}' method="post" enctype="multipart/form-data">
@@ -91,4 +91,81 @@
   @endforeach
   @endsection
 
-  
+  @section('js')
+  <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $(document).ready(function() {
+
+      // $("form.del_img").on("submit", function() {
+      //   return confirm("Are you sure?");
+      // });
+
+      $("button.del_img").on('click', function(e) {
+        e.preventDefault();
+        var form = $(this).parents().parents('form');
+        // form.submit();
+        // var c = confirm("你確定要刪除此項片嗎?")
+        swal({
+            title: "Are you sure?",
+            text: "你確定要刪除此項片嗎?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "確認刪除",
+            cancelButtonText: "取消此動作",
+            closeOnConfirm: false,
+          },
+          function(isConfirm) {
+            if (isConfirm) {
+              form.submit();
+            }
+          });
+      })
+
+      $($("input[type=radio]")).on('change', function() {
+        // alert($(this).attr('url'))
+        var imgId = $(this).attr('data-id');
+        alert('{{url("admin/img")}}'+ '/' +$(this).attr('data-id'));
+        // alert($("input[data-id=" + $(this).attr('data-id') + "]:checked").val())
+        // var c = confirm("你確定要更改此設定嗎");
+        // alert( "{{url('admin/img')}}" + '/' + $(this).attr('data-id') );
+        //------------------
+        swal({
+            title: "Are you sure?",
+            text: "你確定要更改此設定嗎?",
+            // type: "warning",
+            type: "info",
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "確認修改",
+            cancelButtonText: "取消此動作",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+          },
+          function(){
+            setTimeout(function(){
+              $.ajax({
+            type: "PUT",
+            url: '{{url("admin/img")}}'+ '/' + imgId,
+            data: {
+              id: $(this).attr('data-id'),
+              publish: $("input[data-id=" + $(this).attr('data-id') + "]:checked").val()
+            },
+            dataType: 'JSON',
+            success: function(data) {
+              console.log(data);
+              console.log("ajax success");
+            }
+          }) 
+            swal("Ajax request finished!");
+            }, 2000);
+          });
+        //------------------
+      });
+    })
+  </script>
+  @endsection

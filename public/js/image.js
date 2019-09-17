@@ -5,6 +5,11 @@ $(document).ready(function() {
   //   return confirm("Are you sure?");
   // });
 
+  $("button.delete").on('click',function(e){
+    e.preventDefault();
+    location.reload();
+  })
+
   $("button.del_img").on('click', function(e) {
     e.preventDefault();
     var form = $(this).parents().parents('form');
@@ -25,8 +30,8 @@ $(document).ready(function() {
       });
   })
 
-  $($("input[type=radio]")).on('change', function() {
-    alert($(this).attr('data-id'));
+  $($(".img_box input[type=radio]")).on('change', function() {
+    // alert($(this).attr('data-id'));
     // alert($("input[data-id=" + $(this).attr('data-id') + "]:checked").val())
     var c = confirm("你確定要更改此設定嗎");
     if (c) {
@@ -36,7 +41,7 @@ $(document).ready(function() {
         },
         type: "PUT",
         // url: '{{url("admin/img")}}'+ '/' + $(this).attr('data-id'),
-        url: '{{url("admin/img")}}',
+        url: $(this).attr('url'),
         data: {
           id: $(this).attr('data-id'),
           publish: $("input[data-id=" + $(this).attr('data-id') + "]:checked").val()
@@ -47,6 +52,10 @@ $(document).ready(function() {
           console.log("ajax success");
         }
       })
+    }
+    else
+    {
+      location.reload();
     }
   });
 })

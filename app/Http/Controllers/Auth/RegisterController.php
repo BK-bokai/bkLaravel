@@ -7,6 +7,9 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Session; 
 
 class RegisterController extends Controller
 {
@@ -23,12 +26,31 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    public function showRegistrationForm()
+    {
+        return view('frontend.register');
+    }
+
+
+    public function test(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        return $request;
+    }
+
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/register';
+
+    protected function redirectTo()
+    {
+        // $success='註冊成功，請至信箱收取確認信';
+        return route('register');
+        // return route('register')->with('success');
+    }
 
     /**
      * Create a new controller instance.
@@ -50,8 +72,21 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password_confirmation' => ['required_with:password', 'same:password'],
+            'level' => ['required'],
+            'active' => ['required']
+        ], [
+            'name.required'    => '請輸入使用者名稱。',
+            'username.required'    => '請輸入使用者名稱。',
+            'email.email'    => '請輸入正確的信箱。',
+            'email.required'    => '請輸入信箱。',
+            'password.required' => '請輸入最少8碼的密碼。',
+            'password.min:8' => '請輸入最少8碼的密碼。',
+            'password_confirmation.same' => '兩次密碼不相同。',
+            'password.confirmed' => '兩次密碼不相同。',
         ]);
     }
 
@@ -65,8 +100,30 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'active' => $data['active'],
+            'level' => $data['level']
         ]);
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        // $this->guard()->login($user);
+        Session::put('success', '註冊成功，請至信箱收取確認信');
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
     }
 }

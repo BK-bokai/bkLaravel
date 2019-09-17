@@ -22,6 +22,12 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 
 Route::post('register', 'Auth\RegisterController@register');
 // Route::post('register', 'Auth\RegisterController@test');
+Route::get('confirm',function(){
+    return view('frontend.ConfirmUser');
+
+});
+
+Route::get('/email', 'RegisterEmailController@send');
 
 
 Route::get('/login', function(){

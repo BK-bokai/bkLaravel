@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Session; 
+use App\Http\Controllers\RegisterEmailController;
 
 class RegisterController extends Controller
 {
@@ -122,6 +123,10 @@ class RegisterController extends Controller
 
         // $this->guard()->login($user);
         Session::put('success', '註冊成功，請至信箱收取確認信');
+        Session::put('name', $request->name);
+        Session::put('email', $request->email);
+        $mail=new RegisterEmailController;
+        $mail->send();
 
         return $this->registered($request, $user)
             ?: redirect($this->redirectPath());

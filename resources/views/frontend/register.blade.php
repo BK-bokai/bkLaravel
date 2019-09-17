@@ -64,11 +64,11 @@
     <!-- </div> -->
 
     <!-- <div class="input-field col s12"> -->
-      <!-- <select name='level' > -->
-        <!-- <option value="" disabled selected>level3</option> -->
-        <!-- <option value="3"  selected>level3</option> -->
-      <!-- </select> -->
-      <!-- <label >選擇管理權限</label> -->
+    <!-- <select name='level' > -->
+    <!-- <option value="" disabled selected>level3</option> -->
+    <!-- <option value="3"  selected>level3</option> -->
+    <!-- </select> -->
+    <!-- <label >選擇管理權限</label> -->
     <!-- </div> -->
 
     <input type="hidden" name="level" value="3">
@@ -78,16 +78,6 @@
       <button class="btn waves-effect waves-light test" type="submit">註冊
         <i class="material-icons right">send</i>
       </button>
-      <?php $success = Session::get('success') ?>
-      @if($success)
-      <p class="teal-text">{{ $success }}</p>
-      <?php unset($success) ?>
-      <?php
-      session()->forget('success');
-      session()->flush();
-      ?>
-      @endif
-
     </div>
 
     <!-- </div> -->

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Session; 
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\RegisterEmailController;
 
 class RegisterController extends Controller
@@ -44,12 +44,12 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/register';
+    protected $redirectTo = '/login';
 
     protected function redirectTo()
     {
         // $success='註冊成功，請至信箱收取確認信';
-        return route('register');
+        return route('login');
         // return route('register')->with('success');
     }
 
@@ -117,6 +117,10 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
+        //create the random activasion code
+        $activasion = md5(uniqid(rand(), true));
+        $request['active'] = $activasion;
+
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
@@ -125,7 +129,7 @@ class RegisterController extends Controller
         Session::put('success', '註冊成功，請至信箱收取確認信');
         Session::put('name', $request->name);
         Session::put('email', $request->email);
-        $mail=new RegisterEmailController;
+        $mail = new RegisterEmailController($activasion);
         $mail->send();
 
         return $this->registered($request, $user)

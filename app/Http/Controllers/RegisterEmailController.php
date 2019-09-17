@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Session;
 
 class RegisterEmailController extends Controller
 {
+    private $activasion=null;
+
+    public function __construct($activasion)
+    {
+        $this->activasion=$activasion;
+    }
+    
     public function send()
     {
         /**
@@ -24,7 +31,7 @@ class RegisterEmailController extends Controller
         // 提供給模板的參數
         $MailBody = [
             'content' => "您已於BK網站註冊成功，請點選下列網址進行進一步認證",
-            'link'    => "testtest"
+            'link'    => url("/confirm/{$this->activasion}")
         ];
 
         // 若要直接檢視模板

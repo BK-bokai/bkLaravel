@@ -1,9 +1,9 @@
-@extends('backend.layouts.master')
+@extends('frontend.layouts.master')
 @section('title','登入')
 @section('content')
 <div class="row container login">
    <form method="post" action="{{url('login')}}" class="col s12 loginform" enctype="multipart/form-data">
-   {{ csrf_field() }}
+      {{ csrf_field() }}
 
       <div class="row">
          <div class="input-field col s12">
@@ -24,6 +24,15 @@
             <button class="btn waves-effect waves-light test" type="submit">登入
                <i class="material-icons right">send</i>
             </button>
+            <?php $success = Session::get('success') ?>
+            @if($success)
+            <p class="teal-text">{{ $success }}</p>
+            <?php unset($success) ?>
+            <?php
+            session()->forget('success');
+            session()->flush();
+            ?>
+            @endif
          </div>
       </div>
 

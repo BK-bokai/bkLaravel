@@ -21,24 +21,18 @@ Route::get('/', function () {
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 
 Route::post('register', 'Auth\RegisterController@register');
-// Route::post('register', 'Auth\RegisterController@test');
-Route::get('confirm',function(){
-    return view('frontend.ConfirmUser');
 
-});
+Route::get('confirm/{active}','ConfirmUserController@confirm')->name('confirm');
 
 Route::get('/email', 'RegisterEmailController@send');
 
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 
-Route::get('/login', function(){
-    return view('backend.login');
-
-});
-
-Route::post('login', 'Auth\LoginController@login')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('dologin');
 
 
 Route::prefix('admin')->name('admin.')->group(function () {
+
     Route::get('/', 'backend\IndexController@index');
 
     Route::get('img', 'backend\ImgController@index')->name('img');
@@ -51,6 +45,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 });
-// Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

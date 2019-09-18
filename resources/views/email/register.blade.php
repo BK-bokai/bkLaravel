@@ -1,4 +1,4 @@
 <p>
   {{ $MailBody['content'] }}
 </p>
-<a href="{{$MailBody['link']}}">link</a>
+<a class="waves-effect waves-light btn" href="{{$MailBody['link']}}">link</a>

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Session;
-use App\Http\Controllers\RegisterEmailController;
+use App\Http\Controllers\frontend\RegisterEmailController;
 
 class RegisterController extends Controller
 {
@@ -81,7 +81,7 @@ class RegisterController extends Controller
             'active' => ['required']
         ], [
             'name.required'    => '請輸入使用者名稱。',
-            'username.required'    => '請輸入使用者名稱。',
+            'username.required'    => '請輸入帳號。',
             'email.email'    => '請輸入正確的信箱。',
             'email.required'    => '請輸入信箱。',
             'password.required' => '請輸入最少8碼的密碼。',
@@ -110,6 +110,46 @@ class RegisterController extends Controller
     }
 
     /**
+     * 確認資料庫是否有重複註冊
+     */
+    
+    private function confirm(Request $request)
+    {
+        $user_name    = User::where('name', $request->name)->first();
+        $user_username= User::where('username', $request->username)->first();
+        $user_email   = User::where('email', $request->email)->first();
+        // Check if user was successfully loaded, that the password matches
+        // and active is not 1. If so, override the default error message.
+        if($user_name != null || $user_username != null || $user_email != null)
+        {
+            if ($user_name != null) {
+                $errors = [ 'name' => '此使用者名稱已被使用過!'];
+            };
+    
+            if ($user_username != null) {
+                $errors = [ 'username' => '此帳號已被使用過!'];
+            };
+    
+            if ($user_email != null) {
+                $errors = [ 'email' => '此信箱已被註冊!'];
+            };
+
+            return redirect()->back()
+            ->withInput($request->only('username', 'remember'))
+            ->withErrors($errors);
+        };
+
+
+        if ($request->expectsJson()) {
+            return response()->json($errors, 422);
+        };
+
+        return false;
+
+    }
+    
+
+    /**
      * Handle a registration request for the application.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -118,6 +158,7 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         //create the random activasion code
+        return $this->confirm($request);
         $activasion = md5(uniqid(rand(), true));
         $request['active'] = $activasion;
 

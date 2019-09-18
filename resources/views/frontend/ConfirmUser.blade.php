@@ -58,9 +58,8 @@
             <h1 class="">註冊完成</h1>
         </div>
     </div>
-
     <div class="col s12 center">
-    <a class="waves-effect waves-light btn center">請進登入頁面</a>
+    <a href="{{route('login')}}" class="waves-effect waves-light btn center">請進登入頁面</a>
     </div>
     </div>
 

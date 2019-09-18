@@ -9,6 +9,14 @@
          <div class="input-field col s12">
             <input id="username" type="text" class="validate un" name='username'>
             <label for="username"><span class="member">帳號</span></label>
+            <?php //print_r(Session::get('errors'))?>
+            @error('active')
+            <p class="red-text"> {{ $message }} </p>
+            @enderror
+
+            @error('username')
+            <p class="red-text">{{ $message }}</p>
+            @enderror
          </div>
       </div>
 
@@ -16,8 +24,14 @@
          <div class="input-field col s12">
             <input id="password" type="password" class="validate pw" name='password'>
             <label for="password"><span class="member">密碼</span></label>
+            @error('password')
+            <p class="red-text">{{ $message }}</p>
+            @enderror
          </div>
       </div>
+
+
+
 
       <div class="row">
          <div class="col s6">
@@ -33,6 +47,16 @@
             session()->flush();
             ?>
             @endif
+         </div>
+         <!-- Switch -->
+         <div class="switch col s6">
+            <p>記住我</p>
+            <label>
+               Off
+               <input name='remember' type="checkbox">
+               <span class="lever"></span>
+               On
+            </label>
          </div>
       </div>
 

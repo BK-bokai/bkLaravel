@@ -22,9 +22,9 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 
 Route::post('register', 'Auth\RegisterController@register');
 
-Route::get('confirm/{active}','ConfirmUserController@confirm')->name('confirm');
+Route::get('confirm/{active}','frontend\ConfirmUserController@confirm')->name('confirm');
 
-Route::get('/email', 'RegisterEmailController@send');
+Route::get('/email', 'frontend\RegisterEmailController@send');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 
@@ -35,7 +35,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/', 'backend\IndexController@index');
 
-    Route::get('img', 'backend\ImgController@index')->name('img');
+    Route::get('img', 'backend\ImgController@index')->name('img');    
     Route::post('img', 'backend\ImgController@create');
     Route::delete('img/{image}', 'backend\ImgController@delete');
     Route::put('img/{image}', 'backend\ImgController@update');

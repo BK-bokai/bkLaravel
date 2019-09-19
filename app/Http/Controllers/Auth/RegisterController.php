@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Model\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -112,31 +112,46 @@ class RegisterController extends Controller
     /**
      * 確認資料庫是否有重複註冊
      */
-    
+
     private function confirm(Request $request)
     {
         $user_name    = User::where('name', $request->name)->first();
-        $user_username= User::where('username', $request->username)->first();
+        $user_username = User::where('username', $request->username)->first();
         $user_email   = User::where('email', $request->email)->first();
         // Check if user was successfully loaded, that the password matches
         // and active is not 1. If so, override the default error message.
-        if($user_name != null || $user_username != null || $user_email != null)
-        {
+        if ($user_name != null || $user_username != null || $user_email != null) {
             if ($user_name != null) {
-                $errors = [ 'name' => '此使用者名稱已被使用過!'];
+                $errors = ['name' => '此使用者名稱已被使用過!'];
             };
-    
+
             if ($user_username != null) {
-                $errors = [ 'username' => '此帳號已被使用過!'];
+                $errors = ['username' => '此帳號已被使用過!'];
             };
-    
+
             if ($user_email != null) {
-                $errors = [ 'email' => '此信箱已被註冊!'];
+                $errors = ['email' => '此信箱已被註冊!'];
+            };
+
+            if ($user_name != null && $user_username != null) {
+                $errors = ['name' => '此使用者名稱已被使用過!','username' => '此帳號已被使用過!'];
+            };
+
+            if ($user_name != null && $user_email != null) {
+                $errors = ['name' => '此使用者名稱已被使用過!','email' => '此信箱已被註冊!'];
+            };
+
+            if ($user_username != null && $user_email != null) {
+                $errors = ['username' => '此帳號已被使用過!','email' => '此信箱已被註冊!'];
+            };
+
+            if ($user_name != null && $user_username != null && $user_email != null) {
+                $errors = ['name' => '此使用者名稱已被使用過!','username' => '此帳號已被使用過!','email' => '此信箱已被註冊!'];
             };
 
             return redirect()->back()
-            ->withInput($request->only('username', 'remember'))
-            ->withErrors($errors);
+                ->withInput($request->only('username', 'remember'))
+                ->withErrors($errors);
         };
 
 
@@ -145,9 +160,8 @@ class RegisterController extends Controller
         };
 
         return false;
-
     }
-    
+
 
     /**
      * Handle a registration request for the application.
@@ -157,8 +171,13 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
+        $user_name    = User::where('name', $request->name)->first();
+        $user_username = User::where('username', $request->username)->first();
+        $user_email   = User::where('email', $request->email)->first();
         //create the random activasion code
-        return $this->confirm($request);
+        if ($user_name != null || $user_username != null || $user_email != null) {
+            return $this->confirm($request);
+        }
         $activasion = md5(uniqid(rand(), true));
         $request['active'] = $activasion;
 

@@ -6,7 +6,7 @@
       {{ csrf_field() }}
 
       <div class="input-field col s12">
-         <input id="email" type="email" name="email" class="validate" required >
+         <input id="email" type="email" name="email" class="validate" required>
          <label for="email"><span>電子信箱</span></label>
          @error('email')
          <p class="red-text">{{ $message }}</p>
@@ -19,15 +19,10 @@
             <button class="btn waves-effect waves-light test" type="submit">重設密碼
                <i class="material-icons right">send</i>
             </button>
-            <?php $success = Session::get('success') ?>
-            @if($success)
-            <p class="teal-text">{{ $success }}</p>
-            <?php unset($success) ?>
-            <?php
-            session()->forget('success');
-            session()->flush();
-            ?>
+            @if (session('status'))
+            <p class="teal-text"> {{ session('status') }} </p>
             @endif
+            
          </div>
       </div>
 

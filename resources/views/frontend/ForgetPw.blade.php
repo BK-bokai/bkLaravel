@@ -20,7 +20,7 @@
                <i class="material-icons right">send</i>
             </button>
             @if (session('status'))
-            <p class="teal-text"> {{ session('status') }} </p>
+            <p class="teal-text"> {{ session('status') }}  <p>
             @endif
             
          </div>

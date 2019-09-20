@@ -17,7 +17,7 @@ class ConfirmUserController extends Controller
         if (!empty( $user->all())) {
             $id=$user[0]['id'];
             $user = User::find($id);
-            $user->active='yes';
+            $user->active='active';
             $user->save();
 
             return view('frontend.ConfirmUser');

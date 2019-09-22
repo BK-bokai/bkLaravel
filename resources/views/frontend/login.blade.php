@@ -38,6 +38,9 @@
             <button class="btn waves-effect waves-light test" type="submit">登入
                <i class="material-icons right">send</i>
             </button>
+            @if (session('status'))
+            <p class="teal-text"> {{ session('status') }}  <p>
+            @endif
             <?php $success = Session::get('success') ?>
             @if($success)
             <p class="teal-text">{{ $success }}</p>

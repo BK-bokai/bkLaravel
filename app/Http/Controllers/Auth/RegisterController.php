@@ -76,7 +76,7 @@ class RegisterController extends Controller
             'username' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'password_confirmation' => ['required_with:password', 'same:password'],
+            'password_confirmation' => [ 'same:password'],
             'level' => ['required'],
             'active' => ['required']
         ], [
@@ -85,7 +85,7 @@ class RegisterController extends Controller
             'email.email'    => '請輸入正確的信箱。',
             'email.required'    => '請輸入信箱。',
             'password.required' => '請輸入最少8碼的密碼。',
-            'password.min:8' => '請輸入最少8碼的密碼。',
+            'password.min' => '請輸入最少8碼的密碼。',
             'password_confirmation.same' => '兩次密碼不相同。',
             'password.confirmed' => '兩次密碼不相同。',
         ]);

@@ -130,7 +130,7 @@ class ForgotPasswordController extends Controller
         // user with a link to reset their password. We will then redirect back to
         // the current URI having nothing set in the session to indicate errors.
 
-        $user->sendPasswordResetNotification($tokens);
+        $user->sendPasswordResetNotification("{$tokens}?email={$email}");
 
         return true;
     }

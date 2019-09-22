@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\frontend;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Model\User;
 use App\backend\Image;
 
 class ConfirmUserController extends Controller

@@ -1,5 +1,6 @@
 
 $(document).ready(function() {
+  $('.sidenav').sidenav();
 
   // $("form.del_img").on("submit", function() {
   //   return confirm("Are you sure?");

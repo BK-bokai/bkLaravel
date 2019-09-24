@@ -4,7 +4,8 @@ namespace App\Http\Controllers\backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\backend\Image;
+use App\Model\Image;
+use Auth;
 
 
 class ImgController extends Controller
@@ -13,7 +14,8 @@ class ImgController extends Controller
     {
         $images = Image::all();
         return view('backend/img', [
-            'images' => $images
+            'images' => $images,
+            'name' => Auth::user()->name
         ]);
     }
 

@@ -57,4 +57,8 @@
 </body>
 
 </html>
-
+<script>
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
+</script>

@@ -216,3 +216,7 @@ button.confirm.btn.btn-lg.btn-primary {
 div.register_form{
     margin-top: 20px;
 }
+li.user{
+    list-style: none;
+    padding-left: 26px;
+}

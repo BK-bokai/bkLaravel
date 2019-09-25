@@ -58,7 +58,16 @@
 
 </html>
 <script>
-  $(document).ready(function(){
+  $(document).ready(function() {
     $('.sidenav').sidenav();
+    $('.carousel').carousel({
+    });
+  })
+
+  $('.slider').slider({
+    indicators: false,
+    height: 1000 , // define your height here
+    transition: 500,
+    interval: 6000
   });
 </script>

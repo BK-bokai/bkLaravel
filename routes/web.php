@@ -12,10 +12,10 @@
 */
 
 Route::get('/', 'frontend\IndexController@index');
+Route::get('/images', 'frontend\ImgController@index');
 
-// Route::get('/register', function () {
-//     return view('frontend.register');
-// });
+
+
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 
 Route::post('register', 'Auth\RegisterController@register');

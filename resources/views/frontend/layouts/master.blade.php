@@ -64,10 +64,10 @@
     });
   })
 
-  $('.slider').slider({
-    indicators: false,
-    height: 1000 , // define your height here
-    transition: 500,
-    interval: 6000
-  });
+  // $('.slider').slider({
+  //   indicators: false,
+  //   height: 1000 , // define your height here
+  //   transition: 500,
+  //   interval: 6000
+  // });
 </script>

@@ -16,6 +16,7 @@ Route::get('/images', 'frontend\ImgController@index');
 
 
 
+
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 
 Route::post('register', 'Auth\RegisterController@register');
@@ -46,7 +47,10 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('work', 'backend\WorkController@index');
     Route::get('member', 'backend\MemberController@index');
 
+    Route::get('message', function() {
+        return view('backend.message');
+    });
+
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');

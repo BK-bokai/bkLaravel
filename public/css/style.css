@@ -220,3 +220,8 @@ li.user{
     list-style: none;
     padding-left: 26px;
 }
+
+div.card-panel hr.msg-line{
+    margin-left: -1.7em;
+    margin-right: -1.7em;
+}

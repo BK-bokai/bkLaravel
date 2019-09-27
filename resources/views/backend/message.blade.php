@@ -2,37 +2,29 @@
 @section('title','聊天區')
 
 @section('content')
-<div class="row container">
-   <ul class="collection with-header">
-      <li class="collection-item avatar">
-         <img src="http://laravel.local/img/IMAG0448.jpg" alt="" class="circle">
-         <span class="title">劉博凱</span>
-         <br>
-         <h5>好無聊喔!!</h5>
-      </li>
-      <li class="collection-item avatar">
-         <img src="http://laravel.local/img/IMAG0448.jpg" alt="" class="circle">
-         <span class="title">劉博凱</span>
-         <h5>好無聊喔!!</h5>
-      </li>
-      <li class="collection-item avatar">
-         <div class="col 12">
-            <img src="http://laravel.local/img/IMAG0448.jpg" alt="" class="circle">
-            <h6 class="blue-text ">
-               Alvin
-            </h6>
+<div class="row ">
+   <!-- po文區 -->
+   <div class="col s12 m8 offset-m2 l6 offset-l3">
+      <div class="card-panel grey lighten-5 z-depth-1">
+         <div class="row valign-wrapper">
+            <div class="chip">
+                <!-- 大頭貼 -->
+               <img src="http://laravel.local/img/IMAG0448.jpg" alt="Contact Person">
+                <!-- 名稱 -->
+               劉博凱
+            </div>
          </div>
-         <div class="col s10 left-align">
-            <h6 class="blue-text ">
-               Alvin
-            </h6>
-         </div>
+         <!-- 文章內容 -->
+         好無聊喔!!
+         快來陪我玩
+         <hr class="msg-line">
+         2則留言
+         <hr class="msg-line">
+      </div>
+   </div>
 
 
-      </li>
-      <li class="collection-item">Alvin</li>
-      <li class="collection-item">Alvin</li>
-   </ul>
+
 
 </div>
 @endsection

@@ -1,0 +1,33 @@
+@extends('backend.layouts.master')
+@section('title','聊天區')
+
+@section('content')
+<div class="row container">
+   <ul class="collection with-header message">
+      <li class="collection-item avatar">
+         <div class="col s2">
+            <img src="http://laravel.local/img/IMAG0448.jpg" alt="" class="circle">
+         </div>
+         <div class="col s10">
+            <span class="title">劉博凱</span>
+         </div>
+         <br>
+         <h5>好無聊喔!!</h5>
+      </li>
+      <li class="collection-item avatar">
+         <img src="http://laravel.local/img/IMAG0448.jpg" alt="" class="circle">
+         <span class="title">劉博凱</span>
+         <h5>好無聊喔!!</h5>
+      </li>
+      <li class="collection-item avatar">
+         <div class="chip left">
+            <img src="http://laravel.local/img/IMAG0448.jpg" alt="Contact Person">
+            劉博凱
+         </div>
+      </li>
+      <li class="collection-item">Alvin</li>
+      <li class="collection-item">Alvin</li>
+   </ul>
+
+</div>
+@endsection

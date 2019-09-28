@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', 'frontend\IndexController@index');
-Route::get('/images', 'frontend\ImgController@index');
+Route::get('/', 'frontend\IndexController@index')->name('index');
+Route::get('/images', 'frontend\ImgController@index')->name('images');
 
 
 
@@ -49,6 +49,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('message', function() {
         return view('backend.message');
+    });
+    
+    Route::post('message','backend\MessageController@post')->name('msg-post');
     });
 
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');

@@ -131,6 +131,7 @@ a {
     border-bottom: 1px solid rgba(255, 0, 0, 0.8) !important;
     box-shadow: 0 1px 0 0 rgba(255, 0, 0, 0.8) !important;
 }
+
 .errorun input[type=text], .materialize-textarea:focus:not([readonly]) {
     border-bottom: 1px solid rgba(255, 0, 0, 0.8) !important;
     box-shadow: 0 1px 0 0 rgba(255, 0, 0, 0.8) !important;
@@ -150,6 +151,7 @@ a {
     border-bottom: 1px solid rgba(255, 0, 0, 0.8) !important;
     box-shadow: 0 1px 0 0 rgba(255, 0, 0, 0.8) !important;
 }
+
 .errorunpas input[type=password], .materialize-textarea:focus:not([readonly]) {
     border-bottom: 1px solid rgba(255, 0, 0, 0.8) !important;
     box-shadow: 0 1px 0 0 rgba(255, 0, 0, 0.8) !important;
@@ -169,8 +171,6 @@ a {
     border-bottom: 1px solid rgba(0, 0, 0, 0.8) !important;
     box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.8) !important;
 }
-
-
 
 div#addimg {
     padding-bottom: 1.5vh;
@@ -210,18 +210,38 @@ button.cancel.btn.btn-lg.btn-default {
 
 button.confirm.btn.btn-lg.btn-primary {
     background-color: #e57373;
-    
 }
 
-div.register_form{
+div.register_form {
     margin-top: 20px;
 }
-li.user{
+
+li.user {
     list-style: none;
     padding-left: 26px;
 }
 
-div.card-panel hr.msg-line{
+div.card-panel hr.msg-line {
     margin-left: -1.7em;
     margin-right: -1.7em;
+ 
+}
+
+.valign-wrapper .reply-range {
+    margin-bottom: 0;
+    border: solid;
+    border-radius: 40px;
+    padding: 0.3em;
+}
+
+.card-panel .msg-func{
+    width: 100%;
+    background-color: #dfdfdf;
+    box-shadow: none;
+    color: black;
+}
+.msg-contain{
+    border-style: solid;
+    min-height: 64px;
+    border-radius: 41px;
 }

@@ -58,3 +58,11 @@
 
 </html>
 
+<script>
+  $(document).ready(function() {
+    $('.sidenav').sidenav();
+    $('.carousel').carousel({
+    });
+  })
+</script>
+

@@ -47,12 +47,12 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('work', 'backend\WorkController@index');
     Route::get('member', 'backend\MemberController@index');
 
-    Route::get('message', function() {
-        return view('backend.message');
-    });
-    
-    Route::post('message','backend\MessageController@post')->name('msg-post');
-    });
+    Route::get('message', 'backend\MsgController@index')->name('message');
+
+    Route::post('message','backend\MsgController@post')->name('msg-post');
+
+    Route::post('reply','backend\MsgController@reply')->name('msg-reply');
+
 
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 });

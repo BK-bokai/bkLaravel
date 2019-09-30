@@ -16,7 +16,7 @@
             <li><a href="{{url('admin/member')}}">會員管理</a></li>
             <li><a href="{{url('admin/logout')}}">登出</a></li>
          </ul>
-         {{-- <li class="user"><a href="#">{{ $name }} 你好!!</a></li> --}}
+         <li class="user"><a href="#">{{ $name }} 你好!!</a></li>
       </div>
       <ul class="sidenav" id="mobile-demo">
          <li><a href="{{url('login')}}">前台首頁</a></li>

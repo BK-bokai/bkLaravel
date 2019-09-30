@@ -46,4 +46,26 @@ class User extends Authenticatable
     {
         $this->notify(new ResetPassword($token));
     }
+
+    public function message()
+    {
+        /**
+         * Post::class related 关联模型
+         * user_id foreignKey 当前表关联字段
+         * id localKey 关联表字段
+         */
+        return $this->hasMany('App\Model\Message', 'user_id', 'id');
+    }
+
+    public function reply()
+    {
+        /**
+         * Post::class related 关联模型
+         * user_id foreignKey 当前表关联字段
+         * id localKey 关联表字段
+         */
+        return $this->hasMany('App\Model\Reply', 'user_id', 'id');
+    }
+
+
 }

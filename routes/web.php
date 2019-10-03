@@ -48,8 +48,15 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('member', 'backend\MemberController@index');
 
     Route::get('message', 'backend\MsgController@index')->name('message');
-
     Route::post('message','backend\MsgController@post')->name('msg-post');
+    Route::delete('message/{message}', 'backend\MsgController@delete');
+    Route::put('message/{message}', 'backend\MsgController@update');
+
+    Route::delete('reply/{reply}', 'backend\MsgController@reply_delete');
+    Route::put('reply/{reply}', 'backend\MsgController@reply_update');
+
+
+
 
     Route::post('reply','backend\MsgController@reply')->name('msg-reply');
 

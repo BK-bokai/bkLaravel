@@ -63,6 +63,7 @@
     $('.sidenav').sidenav();
     $('.carousel').carousel({
     });
+    $('.dropdown-trigger').dropdown();
   })
 </script>
 

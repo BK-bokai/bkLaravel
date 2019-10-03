@@ -245,3 +245,12 @@ div.card-panel hr.msg-line {
     min-height: 64px;
     border-radius: 41px;
 }
+
+i.material-icons.msgI {
+    margin-right: 0;
+}
+
+a.dropdown-trigger.btn.grey.darken-1.replyBut {
+    border-radius: 25px;
+    margin-top: 0px;
+}

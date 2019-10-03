@@ -19,7 +19,7 @@ class MsgController extends Controller
     {
         $name = Auth::user()->name;
         $messages = Message::All();
-        $msg_replies= message_reply::All();
+        $msg_replies = message_reply::All();
 
         // return $messages;
         return view('backend.message', compact('name', 'messages', 'msg_replies'));
@@ -44,7 +44,41 @@ class MsgController extends Controller
         ]);
         Auth::user()->message()->save($message);
         return redirect()->route('admin.message');
+    }
 
+    public function delete(Request $request, Message $message)
+    {
+        $msg_replies = message_reply::where('message_id', $message->id)->get();
+
+        foreach ($msg_replies as $msg_reply) {
+            Reply::find($msg_reply->reply_id)->delete();
+        }
+
+        message_reply::where('message_id', $message->id)->delete();
+
+        $message->delete();
+
+
+        return $msg_replies;
+    }
+
+    public function update(Request $request, Message $message)
+    {
+        return $message;
+    }
+
+    public function reply_delete(Request $request, Reply $reply)
+    {
+
+        $msg_replies = message_reply::where('reply_id', $reply->id)->delete();
+        $reply->delete();
+
+        return $msg_replies;
+    }
+
+    public function reply_update(Request $request, Reply $reply)
+    {
+        return $reply;
     }
 
     public function reply(Request $request)
@@ -55,7 +89,7 @@ class MsgController extends Controller
         ]);
         Auth::user()->reply()->save($reply);
 
-        $message = message::find( $request->message_id );
+        $message = message::find($request->message_id);
         $message->reply()->attach($reply->id);
         return redirect()->route('admin.message');
     }

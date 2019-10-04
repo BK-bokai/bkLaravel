@@ -56,24 +56,35 @@ $(document).ready(function () {
 
     let msgid = $(this).attr('msgId');
     let url = $(this).attr('url');
-    // alert(url)
-    $.ajax({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      type: "PUT",
-      url: url,
-      data: {
-        id: msgid,
-      },
-      dataType: 'html',
-      success: function (data) {
-        // $("div[msg=message" + msgid + "]").slideUp(3000)
-        console.log(data);
-        console.log("ajax success");
-      }
+    let form = $('#edit').children();
+    let contain = $("div[msgcontain=" + msgid + "]").html();
+    let editarea = $("div[msgcontain=" + msgid + "]").html(form);
+
+    $('#textarea1').val(contain.trim());
+    $("#msgEdit").on('click', function () {
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "PUT",
+        url: url,
+        data: {
+          id: msgid,
+          body: $('#textarea1').val()
+        },
+        dataType: 'html',
+        success: function (data) {
+          $("div[msgcontain=" + msgid + "]").html($('#textarea1').val())
+          // $("div[msg=message" + msgid + "]").slideUp(3000)
+          console.log(data);
+          console.log("ajax success");
+        }
+      })
     })
+
   })
+
+
 
   $('.replyDel').on('click', function () {
 

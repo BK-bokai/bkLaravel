@@ -4,6 +4,19 @@
 <script src="{{ asset('js/message.js') }}" charset="utf-8"></script>
 @endsection
 @section('content')
+
+
+<div class="row"  style="display:none" id='edit'>
+   <form class="col s12">
+      <div class="row">
+         <div class="input-field col s12">
+            <textarea id="textarea1" class="materialize-textarea" cols="30" rows="10"></textarea>
+            {{-- <label for="textarea1">Textarea</label> --}}
+         </div>
+      </div>
+      <button id='msgEdit' type="submit" class="btn waves-effect waves-light" style="margin-bottom: 2vh;">確認</button>
+   </form>
+</div>
 {{-- {{ $message }} --}}
 <div class="row ">
    <!-- po文區 -->
@@ -71,7 +84,7 @@
 
          </div>
          <!-- 文章內容 -->
-         <div class="row center-align msg-contain flow-text">
+         <div class="row center-align msg-contain flow-text" msgcontain='{{ $message->id }}'>
             {{ $message->body }}
          </div>
          @php
@@ -137,7 +150,7 @@
                <div class="col s10">
                   <div class="chip">
                      <!-- 大頭貼 -->
-                     <img src="http://laravel.local/img/IMAG0448.jpg" alt="Contact Person">
+                     {{-- <img src="http://laravel.local/img/IMAG0448.jpg" alt="Contact Person"> --}}
                      <!-- 名稱 -->
                      {{ $reply_user }}
                   </div>

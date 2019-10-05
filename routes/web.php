@@ -45,7 +45,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::put('img/{image}', 'backend\ImgController@update');
 
     Route::get('work', 'backend\WorkController@index');
-    Route::get('member', 'backend\MemberController@index');
+    Route::get('member', 'backend\MemberController@index')->name('memberAdmin');
+    Route::get('addmember', 'backend\MemberController@showform')->name('addmember');
 
     Route::get('message', 'backend\MsgController@index')->name('message');
     Route::post('message','backend\MsgController@post')->name('msg-post');

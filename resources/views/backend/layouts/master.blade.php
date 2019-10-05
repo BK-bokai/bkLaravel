@@ -71,5 +71,7 @@
     $('.carousel').carousel({});
     $('.dropdown-trigger').dropdown();
     $('input#input_text, textarea#textarea2').characterCounter();
+    $('.tooltipped').tooltip();
+    $('select').formSelect();
   })
 </script>

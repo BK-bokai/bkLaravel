@@ -39,6 +39,12 @@ class MsgController extends Controller
         // $request['id'] = Auth::user()->id;
         // return $request['msg-content'];
         $this->validator($request->all())->validate();
+
+        // trim($request['msg-content']);
+        // $request['msg-content']=str_replace(" ","<br>",$request['msg-content']);
+
+        // $request['msg-content']=nl2br(e($request['msg-content']), false);
+        // $request['msg-content']=nl2br($request['msg-content']);
         $message = new Message([
             'body' => $request['msg-content'],
         ]);
@@ -64,6 +70,8 @@ class MsgController extends Controller
 
     public function update(Request $request, Message $message)
     {
+        $message->body=$request->body;
+        $message->save();
         return $message;
     }
 
@@ -78,6 +86,8 @@ class MsgController extends Controller
 
     public function reply_update(Request $request, Reply $reply)
     {
+        $reply->body=$request->body;
+        $reply->save();
         return $reply;
     }
 

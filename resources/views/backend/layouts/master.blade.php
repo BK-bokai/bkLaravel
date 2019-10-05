@@ -24,6 +24,13 @@
   <!-- <script src="{{ asset('js/jquery-3.4.1.min.js') }}" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
+  <script type="text/javascript">
+    jQuery(function($) {
+      $("textarea.AutoHeight").css("overflow", "hidden").bind("keydown keyup", function() {
+        $(this).height('0px').height($(this).prop("scrollHeight") + "px");
+      }).keydown();
+    });
+  </script>
   <!-- Compiled and minified JavaScript -->
   <script src="{{ asset('js/materialize.min.js') }}"></script>
 
@@ -61,10 +68,8 @@
 <script>
   $(document).ready(function() {
     $('.sidenav').sidenav();
-    $('.carousel').carousel({
-    });
+    $('.carousel').carousel({});
     $('.dropdown-trigger').dropdown();
     $('input#input_text, textarea#textarea2').characterCounter();
   })
 </script>
-

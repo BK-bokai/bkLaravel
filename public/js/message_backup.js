@@ -58,15 +58,14 @@ $(document).ready(function () {
     let url = $(this).attr('url');
     //取得空白表單
     let form = $('#edit').children();
-    //取得原本文章內文要用html(因為你要讀到<br>html標籤)
-    let contain = $("div[msgcontain=" + msgid + "]").html().trim().replace(/<br>/g,"\r");
-    alert(contain);
+    //取得原本文章內文
+    let contain = $("div[msgcontain=" + msgid + "]").html();
     //將文章內文改為表單
     let editarea = $("div[msgcontain=" + msgid + "]").html(form);
 
 
-    // 再將原本的內文塞入編輯表單內要用val(因為你已經轉換行符號了)
-    $("div[msgcontain=" + msgid + "] #textarea1").val(contain);
+    // 再將原本的內文塞入編輯表單內
+    $("div[msgcontain=" + msgid + "] #textarea1").val(contain.trim());
 
 
     $("#msgEdit").on('click', function () {
@@ -84,8 +83,7 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
           //成功時將修改的值塞進去原本表單的位置
-          $("div[msgcontain=" + msgid + "]").html($("div[msgcontain=" + msgid + "] #textarea1").val().replace(/\n/g,"<br>"))
-          // $("div[msgcontain=" + msgid + "]").html($("div[msgcontain=" + msgid + "] #textarea1").val())
+          $("div[msgcontain=" + msgid + "]").html($("div[msgcontain=" + msgid + "] #textarea1").val())
           //再將表單內的值清除
           form.find('#textarea1').val('');
           //再塞入編輯表單
@@ -153,13 +151,13 @@ $(document).ready(function () {
     let url = $(this).attr('url');
     //取得空白表單
     let form = $('#edit').children();
-    //取得原本回復內文要用html(因為你要讀到<br>html標籤)
-    let contain = $("span[replycontain=" + replyid + "]").html().trim().replace(/<br>/g,"\r");
+    //取得原本回復內文
+    let contain = $("span[replycontain=" + replyid + "]").text();
     //將文章內文改為表單
     let editarea = $("span[replycontain=" + replyid + "]").html(form);
 
-    // 再將原本的內文塞入編輯表單內要用val(因為已經轉換行符號了)
-    $("span[replycontain=" + replyid + "] #textarea1").val(contain);
+    // 再將原本的內文塞入編輯表單內
+    $("span[replycontain=" + replyid + "] #textarea1").val(contain.trim());
 
     $("#msgEdit").on('click', function () {
       //當編輯完時利用ajax傳送
@@ -176,7 +174,7 @@ $(document).ready(function () {
         dataType: 'html',
         success: function (data) {
           //成功時將修改的值塞進去原本表單的位置
-          $("span[replycontain=" + replyid + "]").html($("span[replycontain=" + replyid + "] #textarea1").val().replace(/\n/g,"<br>"))
+          $("span[replycontain=" + replyid + "]").html($("span[replycontain=" + replyid + "] #textarea1").val())
           //再將表單內的值清除
           form.find('#textarea1').val('');
           //再塞入編輯表單

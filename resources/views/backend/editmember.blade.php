@@ -53,7 +53,7 @@
 
         <!-- <div class="row"> -->
         <div class="col s6">
-            <button class="btn waves-effect waves-light test" type="submit">送出
+            <button class="btn waves-effect waves-light test disabled" type="submit">送出
                 <i class="material-icons right">send</i>
             </button>
             @if (session('status'))

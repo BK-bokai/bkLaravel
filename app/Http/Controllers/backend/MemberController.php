@@ -35,7 +35,7 @@ class MemberController extends Controller
         return view('backend/editmember', compact('name', 'user'));
     }
 
-    public function editMember(Request $request ,User $user)
+    public function editMember(Request $request, User $user)
     {
 
         return $request;
@@ -71,19 +71,32 @@ class MemberController extends Controller
         ];
     }
 
+
+
     public function checkName(Request $request, User $user)
     {
-        return $user;
+        $users = User::where('id', '!=', $user->id)
+            ->where('name', '=', $request->name)->get();
+
+        $oldname = ($request->name == $user->name) ? 0 : 1;
+        return ['repeat' => count($users), 'change' => $oldname];
     }
 
     public function checkUsername(Request $request, User $user)
     {
-        return $user;
+        $users = User::where('id', '!=', $user->id)
+            ->where('username', '=', $request->username)->get();
+
+        $oldUsername = ($request->username == $user->username) ? 0 : 1;
+        return  ['repeat' => count($users), 'change' => $oldUsername];
     }
 
     public function checkEmail(Request $request, User $user)
     {
-        return $user;
+        $users = User::where('id', '!=', $user->id)
+            ->where('email', '=', $request->email)->get();
+        $oldemail = ($request->email == $user->email) ? 0 : 1;
+        return  ['repeat' => count($users), 'change' => $oldemail];
     }
 
 

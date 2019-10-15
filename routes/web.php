@@ -52,10 +52,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('addmember', 'backend\MemberController@addUser')->name('do_addmember');
     Route::delete('addmember/{user}', 'backend\MemberController@deleteUser')->name('do_delmember');
     Route::get('editMember/{user}', 'backend\MemberController@showMember')->name('editmember');
-    Route::post('editMember/{user}', 'backend\MemberController@editMember')->name('do_editmember');
-    Route::post('checkName/{user}', 'backend\MemberController@checkName')->name('do_checkName');
-    Route::post('checkUsername/{user}', 'backend\MemberController@checkUsername')->name('do_checkUsername');
-    Route::post('checkEmail/{user}', 'backend\MemberController@checkEmail')->name('do_checkEmail');
+    Route::put('editMember/{user}', 'backend\MemberController@editMember')->name('do_editmember');
+    Route::post('check/{user}', 'backend\MemberController@check')->name('do_check');
+
 
     // Route::get('editMember/{user}',function($user){
     //     return $user;

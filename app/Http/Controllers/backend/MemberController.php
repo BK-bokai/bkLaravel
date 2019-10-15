@@ -37,8 +37,13 @@ class MemberController extends Controller
 
     public function editMember(Request $request, User $user)
     {
-
-        return $request;
+        $this->edit_validator($request->all())->validate();
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->level = $request->level;
+        $user->save();
+        return redirect()->route('admin.memberAdmin');
     }
 
 
@@ -73,30 +78,44 @@ class MemberController extends Controller
 
 
 
-    public function checkName(Request $request, User $user)
+    public function check(Request $request, User $user)
     {
-        $users = User::where('id', '!=', $user->id)
+        $check=[];
+        $users_name = User::where('id', '!=', $user->id)
             ->where('name', '=', $request->name)->get();
-
-        $oldname = ($request->name == $user->name) ? 0 : 1;
-        return ['repeat' => count($users), 'change' => $oldname];
-    }
-
-    public function checkUsername(Request $request, User $user)
-    {
-        $users = User::where('id', '!=', $user->id)
+        $users_username = User::where('id', '!=', $user->id)
             ->where('username', '=', $request->username)->get();
-
-        $oldUsername = ($request->username == $user->username) ? 0 : 1;
-        return  ['repeat' => count($users), 'change' => $oldUsername];
-    }
-
-    public function checkEmail(Request $request, User $user)
-    {
-        $users = User::where('id', '!=', $user->id)
+        $users_email = User::where('id', '!=', $user->id)
             ->where('email', '=', $request->email)->get();
-        $oldemail = ($request->email == $user->email) ? 0 : 1;
-        return  ['repeat' => count($users), 'change' => $oldemail];
+
+        if(count($users_name)==0 && count($users_username)==0 && count($users_email)==0)
+        {
+            $check['repeat'] = 0;
+        }
+        else
+        {
+            $check['repeat'] = 1;
+            $check['repeat_name']= (count($users_name) > 0)? 1:0;
+            $check['repeat_username']= (count($users_username) > 0)? 1:0;
+            $check['repeat_email']= (count($users_email) > 0)? 1:0;
+            
+
+        }
+
+        if( $request->name != $user->name || 
+            $request->username != $user->username ||
+            $request->email != $user->email ||
+            $request->level != $user->level)
+        {
+                $check['change'] = 1;
+        }
+        else
+        {
+            $check['change'] = 0;
+        }
+        
+        // return ['repeat' => count($users), 'change' => $oldname];
+        return $check;
     }
 
 
@@ -125,6 +144,27 @@ class MemberController extends Controller
             'password.min' => '請輸入最少8碼的密碼。',
             'password_confirmation.same' => '兩次密碼不相同。',
             'password.confirmed' => '兩次密碼不相同。',
+        ]);
+    }
+
+        /**
+     * 確認輸入的資料
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function edit_validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'level' => ['required'],
+        ], [
+            'name.required'    => '請輸入使用者名稱。',
+            'username.required'    => '請輸入帳號。',
+            'email.email'    => '請輸入正確的信箱。',
+            'email.required'    => '請輸入信箱。',
         ]);
     }
 

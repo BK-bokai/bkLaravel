@@ -38,6 +38,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/', 'backend\IndexController@index');
+    Route::put('/{index}/{student}/{worker}', 'backend\IndexController@edit')->name('index_edit');
 
     Route::get('img', 'backend\ImgController@index')->name('img');    
     Route::post('img', 'backend\ImgController@create');

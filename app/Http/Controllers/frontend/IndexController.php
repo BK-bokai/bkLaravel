@@ -12,6 +12,7 @@ use App\Model\Index;
 
 
 
+
 class IndexController extends Controller
 {
     function index()

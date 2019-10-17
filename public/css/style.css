@@ -259,3 +259,7 @@ a.dropdown-trigger.btn.grey.darken-1.replyBut {
     border-radius: 25px;
     margin-top: 0px;
 }
+
+.row.Content {
+    height: 50vh;
+}

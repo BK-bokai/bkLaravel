@@ -128,22 +128,9 @@ class MemberController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'password_confirmation' => ['same:password'],
-            'level' => ['required'],
-            'active' => ['required']
+            'student_skill' => ['required', 'string', 'max:255'],
         ], [
-            'name.required'    => '請輸入使用者名稱。',
-            'username.required'    => '請輸入帳號。',
-            'email.email'    => '請輸入正確的信箱。',
-            'email.required'    => '請輸入信箱。',
-            'password.required' => '請輸入最少8碼的密碼。',
-            'password.min' => '請輸入最少8碼的密碼。',
-            'password_confirmation.same' => '兩次密碼不相同。',
-            'password.confirmed' => '兩次密碼不相同。',
+            'student.required'    => '請輸入技能名稱。',
         ]);
     }
 

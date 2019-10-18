@@ -11,14 +11,14 @@
         <div class="row Content">
             <div class="col s12">
                 <div class="input-field col s12">
-                    <textarea name="index_content_one" id="photoContent1" class="materialize-textarea" >{{ $index->content_one }}</textarea>
+                    <textarea name="index_content_one" id="photoContent1" class="materialize-textarea">{{ $index->content_one }}</textarea>
                     <label for="photoContent1">第一段</label>
                 </div>
             </div>
 
             <div class="col s12">
                 <div class="input-field col s12">
-                    <textarea name="index_content_two" id="photoContent2" class="materialize-textarea" >{{ $index->content_two }}</textarea>
+                    <textarea name="index_content_two" id="photoContent2" class="materialize-textarea">{{ $index->content_two }}</textarea>
                     <label for="photoContent2">第二段</label>
                 </div>
 
@@ -62,14 +62,19 @@
 
                 @foreach ($student_skills as $StudentSkill)
                 <li class="collection-item">
-                    <div>{{ $StudentSkill['skill_name'] }}<a href="javascript:void(0);" class="skill_del secondary-content red-text" data-id="{{ $StudentSkill['id'] }}"><i class="fas fa-trash"></i></a></div>
+                    <div>{{ $StudentSkill['skill_name'] }}<a href="javascript:void(0);" class="studentskill_del secondary-content red-text" url="{{route('admin.del_student_skill',['student_skill' => $StudentSkill['id']])}}" data-id="{{ $StudentSkill['id'] }}"><i class="fas fa-trash"></i></a></div>
                 </li>
                 @endforeach
 
+
                 <li class="collection-item">
-                    <form id='add_skill'>
+                    <form id='add_student_skill' action="{{route('admin.add_student_skill')}}" method="post" enctype="multipart/form-data">
+                        @csrf
                         <div>
-                            <input name='addskill' type="text" placeholder="請輸入要新增的技能">
+                            <input name='student_skill' type="text" placeholder="請輸入要新增的技能">
+                            @error('student_skill')
+                            <p class="red-text">{{ $message }}</p>
+                            @enderror
                             <button class="btn waves-effect waves-light" type="submit">新增技能
                                 <i class="fas fa-save"></i>
                             </button>
@@ -94,14 +99,18 @@
 
                 @foreach ($work_skills as $WorkSkill)
                 <li class="collection-item">
-                    <div>{{ $WorkSkill['skill_name'] }}<a href="javascript:void(0);" class="skill_del secondary-content red-text" data-id="{{ $WorkSkill['id'] }}"><i class="fas fa-trash"></i></a></div>
+                    <div>{{ $WorkSkill['skill_name'] }}<a href="javascript:void(0);" class="workskill_del secondary-content red-text" url="{{route('admin.del_work_skill',['work_skill' => $WorkSkill['id']])}}" data-id="{{ $WorkSkill['id'] }}"><i class="fas fa-trash"></i></a></div>
                 </li>
                 @endforeach
 
                 <li class="collection-item">
-                    <form id='add_skill'>
+                    <form id='add_work_skill' action="{{route('admin.add_work_skill')}}" method="post" enctype="multipart/form-data">
+                        @csrf
                         <div>
-                            <input name='addskill' type="text" placeholder="請輸入要新增的技能">
+                            <input name='work_skill' type="text" placeholder="請輸入要新增的技能">
+                            @error('work_skill')
+                            <p class="red-text">{{ $message }}</p>
+                            @enderror
                             <button class="btn waves-effect waves-light" type="submit">新增技能
                                 <i class="fas fa-save"></i>
                             </button>

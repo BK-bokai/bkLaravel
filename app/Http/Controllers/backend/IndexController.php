@@ -9,6 +9,7 @@ use App\Model\student_skills;
 use App\Model\student;
 use App\Model\work_skills;
 use App\Model\worker;
+use Illuminate\Support\Facades\Validator;
 use Auth;
 
 
@@ -29,10 +30,6 @@ class IndexController extends Controller
     function edit(Request $request,Index $index,student $student,worker $worker)
     {
 
-        $index_content_one = $request->index_content_one;
-        $index_content_two = $request->index_content_two;
-        $student_content   = $request->student_content;
-        $worker_content    = $request->worker_content;
 
         $index->content_one=$request->index_content_one;
         $index->content_two=$request->index_content_two;
@@ -44,4 +41,41 @@ class IndexController extends Controller
 
         return $request->index_content_two;
     }
+
+    function add_student_skill(Request $request)
+    {   
+        Validator::make($request->all(), [
+            'student_skill' => ['required', 'string', 'max:255'],
+        ], [
+            'student_skill.required'    => '請輸入技能名稱。',
+        ])->validate();
+
+        return $request;
+    }
+
+
+    function del_student_skill(Request $request,student_skills $student_skill)
+    {
+        $student_skill->delete();
+        return ['finish'];
+    }
+
+    function add_work_skill(Request $request)
+    {
+        Validator::make($request->all(), [
+            'work_skill' => ['required', 'string', 'max:255'],
+        ], [
+            'work_skill.required'    => '請輸入技能名稱。',
+        ])->validate();    
+        return $request;
+    }
+
+
+    function del_work_skill(Request $request,work_skills $work_skill)
+    {   
+        $work_skill->delete();
+        return ['finish'];
+    }
+
+
 }

@@ -11,10 +11,10 @@
       </div>
       <div class="card-content">
         <p class="text">
-          {{ $index->content_one }}
+        {!! nl2br(e($index->content_one )) !!}
         </p>
         <p class="text">
-          {{ $index->content_two }}
+        {!! nl2br(e($index->content_two )) !!}
         </p>
       </div>
     </div>

@@ -39,6 +39,10 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/', 'backend\IndexController@index');
     Route::put('/{index}/{student}/{worker}', 'backend\IndexController@edit')->name('index_edit');
+    Route::post('/create/student_skill', 'backend\IndexController@add_student_skill')->name('add_student_skill');
+    Route::delete('student_skill/{student_skill}', 'backend\IndexController@del_student_skill')->name('del_student_skill');
+    Route::post('/create/worker_skill}', 'backend\IndexController@add_work_skill')->name('add_work_skill');
+    Route::delete('/worker_skill/{work_skill}', 'backend\IndexController@del_work_skill')->name('del_work_skill');
 
     Route::get('img', 'backend\ImgController@index')->name('img');    
     Route::post('img', 'backend\ImgController@create');

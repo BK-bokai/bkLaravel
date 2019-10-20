@@ -73,14 +73,19 @@
 
       <div class="col s12">
         <label>
-          <input data-id="{{ $image->id }}" class="with-gap" name="publish" url='{{url("admin/img/$image->id")}}' type="radio" value="1" {{ $image->publish == 1 ? "checked" : "" }}>
+          <input data-id="{{ $image->id }}" class="with-gap" name="publish" url='{{ route('admin.img_update_publish',['image'=> $image->id]) }}' type="radio" value="1" {{ $image->publish == 1 ? "checked" : "" }}>
           <span>發佈</span>
         </label>
         <label>
-          <input data-id="{{ $image->id }}" class="with-gap" name="publish" url='{{url("admin/img/$image->id")}}' type="radio" value="0" {{ $image->publish == 0 ? "checked" : "" }}>
+          <input data-id="{{ $image->id }}" class="with-gap" name="publish" url='{{ route('admin.img_update_publish',['image'=> $image->id]) }}' type="radio" value="0" {{ $image->publish == 0 ? "checked" : "" }}>
           <span>不發佈</span>
         </label>
       </div>
+      
+      <div class="col s12"> 
+        
+      </div>
+
       <div class="col s12 center">
         <button class="btn waves-effect waves-light red del_img " type="submit">刪除
           <i class="fas fa-trash-alt"></i>

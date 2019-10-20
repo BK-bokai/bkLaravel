@@ -9,12 +9,14 @@ use App\Model\student_skills;
 use App\Model\student;
 use App\Model\work_skills;
 use App\Model\worker;
+use App\Model\Image;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 
 
 class IndexController extends Controller
 {
+
     function index()
     {
         $index=Index::all()[0];
@@ -25,6 +27,16 @@ class IndexController extends Controller
 
         $work_skills=work_skills::all();
         return view('backend/index',compact('index','student','student_skills','worker','work_skills','name'));
+    }
+
+    function index_img()
+    {
+        // return view('backend.index_img');
+        $images = Image::all();
+        return view('backend.index_img', [
+            'images' => $images,
+            'name' => Auth::user()->name
+        ]);
     }
 
     function edit(Request $request,Index $index,student $student,worker $worker)
@@ -50,7 +62,12 @@ class IndexController extends Controller
             'student_skill.required'    => '請輸入技能名稱。',
         ])->validate();
 
-        return $request;
+        // student_skills::create(['skill_name' => $request->student_skill]);
+        $student_skills=new student_skills;
+        $student_skills->skill_name = $request->student_skill;
+        $student_skills->save();
+
+        return redirect()->route('admin.index');
     }
 
 
@@ -66,8 +83,13 @@ class IndexController extends Controller
             'work_skill' => ['required', 'string', 'max:255'],
         ], [
             'work_skill.required'    => '請輸入技能名稱。',
-        ])->validate();    
-        return $request;
+        ])->validate(); 
+        
+        $work_skills=new work_skills;
+        $work_skills->skill_name = $request->work_skill;
+        $work_skills->save();
+
+        return redirect()->route('admin.index');
     }
 
 

@@ -34,6 +34,8 @@ $(document).ready(function () {
   $($(".img_box input[type=radio]")).on('change', function () {
     // alert($(this).attr('data-id'));
     // alert($("input[data-id=" + $(this).attr('data-id') + "]:checked").val())
+    let url = $(this).attr('url');
+    alert (url)
     var c = confirm("你確定要更改此設定嗎");
     if (c) {
       $.ajax({
@@ -42,7 +44,7 @@ $(document).ready(function () {
         },
         type: "PUT",
         // url: '{{url("admin/img")}}'+ '/' + $(this).attr('data-id'),
-        url: $(this).parents().attr('url'),
+        url: url,
         data: {
           id: $(this).attr('data-id'),
           publish: $("input[data-id=" + $(this).attr('data-id') + "]:checked").val()

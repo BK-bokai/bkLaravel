@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+  $('button#index_img').on('click', function () {
+    let url = $(this).attr('url');
+    window.location.href = url;
+  })
+
   $('button#index_submit').on('click', function () {
     let index_content_one = $("textarea[name='index_content_one']").val();
     let index_content_two = $("textarea[name='index_content_two']").val();
@@ -31,7 +36,7 @@ $(document).ready(function () {
 
   })
 
-  $('a.studentskill_del').on('click',function(){
+  $('a.studentskill_del').on('click', function () {
     let url = $(this).attr('url');
     let target = $(this).parent().parent();
     alert(url)
@@ -56,7 +61,7 @@ $(document).ready(function () {
             url: url,
             dataType: 'json',
             success: function (data) {
-              swal("確認刪除", "已刪除此留言版", "success")
+              swal("確認刪除", "已刪除此技能", "success")
               target.slideUp()
               console.log(data);
               console.log("ajax success");
@@ -67,10 +72,10 @@ $(document).ready(function () {
           swal("取消動作", "已取消剛剛請求！", "success")
         }
       });
-    
+
   })
 
-  $('a.workskill_del').on('click',function(){
+  $('a.workskill_del').on('click', function () {
     let url = $(this).attr('url');
     let target = $(this).parent().parent();
     alert(url)
@@ -96,7 +101,7 @@ $(document).ready(function () {
             url: url,
             dataType: 'json',
             success: function (data) {
-              swal("確認刪除", "已刪除此留言版", "success");
+              swal("確認刪除", "已刪除此技能", "success");
               target.slideUp();
               console.log(data);
               console.log("ajax success");

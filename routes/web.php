@@ -37,7 +37,8 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
-    Route::get('/', 'backend\IndexController@index');
+    Route::get('/', 'backend\IndexController@index')->name('index');
+    Route::get('/index_img', 'backend\IndexController@index_img')->name('index_img');
     Route::put('/{index}/{student}/{worker}', 'backend\IndexController@edit')->name('index_edit');
     Route::post('/create/student_skill', 'backend\IndexController@add_student_skill')->name('add_student_skill');
     Route::delete('student_skill/{student_skill}', 'backend\IndexController@del_student_skill')->name('del_student_skill');
@@ -47,7 +48,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('img', 'backend\ImgController@index')->name('img');    
     Route::post('img', 'backend\ImgController@create');
     Route::delete('img/{image}', 'backend\ImgController@delete');
-    Route::put('img/{image}', 'backend\ImgController@update');
+    Route::put('img/{image}', 'backend\ImgController@update')->name('img_update_publish');
 
     Route::get('work', 'backend\WorkController@index');
 

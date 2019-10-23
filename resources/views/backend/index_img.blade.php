@@ -1,5 +1,5 @@
 @section('js')
-<script src="{{ asset('') }}" charset="utf-8"></script>
+<script src="{{ asset('js/index_image.js') }}" charset="utf-8"></script>
 @endsection
 
 @extends('backend.layouts.master')
@@ -9,9 +9,9 @@
 <!-- 修改相片表單 -->
 <div class="row container">
 
-  <form action='' method="post" enctype="multipart/form-data">
+  <form action='{{route("admin.change_index_img")}}' method="post" enctype="multipart/form-data">
     @csrf
-    @method('DELETE')
+    @method('PUT')
     @foreach ($images as $image)
     <?php $path = explode("\\", $image->image_path); ?>
 
@@ -25,19 +25,16 @@
 
       <div class="col s12">
         <label>
-          <input data-id="{{ $image->id }}" class="with-gap" name="index_img"
-            url='' type="radio" value="1" {{ $image->index == 1 ? "checked" : "" }}>
+          <input class="with-gap" name="index_img" url="{{route('admin.check_index_img',['image'=>$image->id])}}" type="radio" value="{{ $image->id }}" {{ $image->index == 1 ? "checked" : "" }}>
           <span>index</span>
         </label>
       </div>
 
-      <div class="col s12">
-
-      </div>
-
-
     </div>
     @endforeach
-
+    <button class="col s12 btn waves-effect waves-light disabled" type="submit">存檔
+      <i class="fas fa-save"></i>
+    </button>
   </form>
+
   @endsection

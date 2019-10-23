@@ -24,7 +24,6 @@ class IndexController extends Controller
         $student_skills=student_skills::all();
         $worker=worker::all()[0];
         $name = Auth::user()->name;
-
         $work_skills=work_skills::all();
         return view('backend/index',compact('index','student','student_skills','worker','work_skills','name'));
     }
@@ -37,6 +36,37 @@ class IndexController extends Controller
             'images' => $images,
             'name' => Auth::user()->name
         ]);
+    }
+
+    function check_index_img(Request $request,Image $image)
+    {
+        if($image->index == 1)
+        {
+            return ['change' => 0];
+        }
+        else
+        {
+            return ['change' => 1];
+        }
+        
+    }
+
+    function change_index_img(Request $request)
+    {
+        $old_index_image = Image::where('index',1)->first();
+        $new_index_image = Image::where('id',$request->index_img)->first();
+        if($old_index_image == $new_index_image)
+        {
+            return redirect()->route('admin.index_img');
+        }
+        else
+        {
+            $old_index_image->index = 0;
+            $old_index_image->save();
+            $new_index_image->index = 1;
+            $new_index_image->save();
+            return redirect()->route('admin.index_img');
+        }
     }
 
     function edit(Request $request,Index $index,student $student,worker $worker)

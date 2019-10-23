@@ -9,6 +9,7 @@ use App\Model\student;
 use App\Model\work_skills;
 use App\Model\worker;
 use App\Model\Index;
+use App\Model\Image;
 
 
 
@@ -21,8 +22,10 @@ class IndexController extends Controller
         $student=student::all()[0];
         $student_skills=student_skills::all();
         $worker=worker::all()[0];
-        // return $worker[0];
         $work_skills=work_skills::all();
-        return view('frontend/index',compact('index','student','student_skills','worker','work_skills'));
+        $image = Image::where('index',1)->first();
+        $image = explode("\\", $image->image_path);
+        $image = end($image);
+        return view('frontend/index',compact('index','student','student_skills','worker','work_skills','image'));
     }
 }

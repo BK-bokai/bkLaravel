@@ -6,7 +6,7 @@
     <div class="card">
       <div class="card-image">
         <?php $path = explode("\\", $index->photo_path); ?>
-        <img src='{{ asset("img/".end($path)) }}'>
+        <img src='{{ asset("img/".$image) }}'>
         <span class="card-title"> <?php echo (ucfirst($index->username)); ?> </span>
       </div>
       <div class="card-content">

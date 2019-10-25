@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Model\User;
 use Illuminate\Validation\Validator;
+use App\EventService\Events\LoginEvent;
 
 class LoginController extends Controller
 {
@@ -88,33 +89,40 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
-    // protected function attemptLogin(Request $request)
-    // {
-    //     return $this->guard()->attempt(
-    //         $this->credentials($request),
-    //         $request->filled('remember')
-    //     );
-    // }
-
     protected function attemptLogin(Request $request)
     {
-        //$active_user 找尋資料庫中是否有此帳號被啟動的資料
         $active_user = User::where($this->username(), $request->username)
             ->where('active', 'active')->first();
         if ($active_user !== null) {
-            //若有資料，利用attempt方法去比對帳號密碼，若正確，laravel會將帳密資訊儲存在session,
-            //第二個參數為布林值，若為trun，laravel會在資料庫的remeber_token紀錄。
+
             return $this->guard()->attempt(
-                [
-                    $this->username() => $request->username,
-                    'password' => $request->password
-                ],
-                $request->remember
+                $this->credentials($request),
+                $request->filled('remember')
             );
         }
-        //無此使用者資料直接回傳false
+
         return false;
     }
+
+    // protected function attemptLogin(Request $request)
+    // {
+    //     //$active_user 找尋資料庫中是否有此帳號被啟動的資料
+    //     $active_user = User::where($this->username(), $request->username)
+    //         ->where('active', 'active')->first();
+    //     if ($active_user !== null) {
+    //         //若有資料，利用attempt方法去比對帳號密碼，若正確，laravel會將帳密資訊儲存在session,
+    //         //第二個參數為布林值，若為trun，laravel會在資料庫的remeber_token紀錄。
+    //         return $this->guard()->attempt(
+    //             [
+    //                 $this->username() => $request->username,
+    //                 'password' => $request->password
+    //             ],
+    //             $request->remember
+    //         );
+    //     }
+    //     //無此使用者資料直接回傳false
+    //     return false;
+    // }
 
     /**
      * Get the failed login response instance.

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Image;
+use App\EventService\Events\ImageEvent;
 use Auth;
 
 
@@ -30,7 +31,7 @@ class ImgController extends Controller
         }
 
         if ($request->hasFile('image_file')) {
-
+            event(new ImageEvent($request));
 
             $file = $request->file('image_file');
 
